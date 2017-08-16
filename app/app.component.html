@@ -2,19 +2,9 @@
   <h1>To Do List for {{month}}/{{day}}/{{year}}</h1>
   <h3>{{currentFocus}}</h3>
   <!-- task list component goes here -->
-  <task-list></task-list>
+  <!-- The name of the child component's @Input() is on the left in [square brackets]. The data being passed from the parent component is on the right in "quotations". -->
+  <task-list [childTaskList]="masterTaskList" (clickSender)="editTask($event)" ></task-list>
   <hr>
-  <div *ngIf="selectedTask">
-    <h3>{{selectedTask.description}}</h3>
-    <p>Task Complete? {{selectedTask.done}}</p>
-    <h3>Edit Task</h3>
-    <label>Enter Task Description:</label>
-    <input type="text" [(ngModel)]="selectedTask.description" size="60"><br>
-    <label>Enter Task Priority (1-3):</label>
-    <br>
-    <input type="radio" [(ngModel)]="selectedTask.priority" [value]="1">1 (Low Priority)<br>
-    <input type="radio" [(ngModel)]="selectedTask.priority" [value]="2">2 (Medium Priority)<br>
-    <input type="radio" [(ngModel)]="selectedTask.priority" [value]="3">3 (High Priority)
-    <br><button (click)="finishedEditing()">Done</button>
- </div>
+  <edit-task [childSelectedTask]="selectedTask" (doneButtonClickedSender)="finishedEditing()"></edit-task>
+  <new-task (newTaskSender)="addTask($event)"></new-task>
 </div>
